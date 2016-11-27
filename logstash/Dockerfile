@@ -2,6 +2,7 @@ FROM logstash:2
 
 RUN logstash-plugin install logstash-output-mongodb
 
-COPY logstash.conf /etc/logstash/
+COPY logstash-enqueue.conf /etc/logstash/
+COPY logstash-persist.conf /etc/logstash/
 
-CMD ["-f", "/etc/logstash/logstash.conf","--debug"]
+CMD logstash -f /etc/logstash/logstash-${LOGSTASH_MODE}.conf --debug
